@@ -3,13 +3,14 @@
 {% block title %}Categories List{% endblock %}
 
 {% block body %}
+
 <div id="categories-list-wrapper">
     <h1>Categories List</h1>
 
     <div id="categories-section-list-wrapper">
         <ul>
             {% for category in categories %}
-            <li>{{ category.name }}</li>
+            <li><a href="{{ path('category_show', {'id': category.id}) }}">{{ category.name }}</a></li>
             {% endfor %}
         </ul>
     </div>
