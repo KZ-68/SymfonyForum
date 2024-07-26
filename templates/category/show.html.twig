@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Category - {{ category.name }}{% endblock %}
+
+{% block body %}
+<div id="categories-list-wrapper">
+    <h1>Category - {{ category.name }}</h1>
+
+    <div id="categories-section-list-wrapper">
+        <ul>
+            {% if category.topics | length > 0 %}
+                {% for topic in category.topics %}
+                <li></li>
+                {% endfor %}
+            {% else %}
+            <li>No topic found in this category</li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Symfony Forum Home{% endblock %}
+
+{% block body %}
+<div id="forum-home-wrapper">
+    <h1>Symfony Forum Home</h1>
+
+    <div id="section-list-wrapper">
+        <h2>Where you want to go ?</h2>
+
+        <ul>
+            <li><a href="{{ path('category_list') }}">> Categories List</a></li>
+            <li>> All Topics</li>
+            <li>> Users List</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
