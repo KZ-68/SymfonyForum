@@ -25,7 +25,7 @@ class Topic
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column]
-    private ?bool $isClosed = null;
+    private ?bool $isClosed = false;
 
     #[ORM\ManyToOne(inversedBy: 'topic')]
     private ?Category $category = null;
@@ -42,6 +42,7 @@ class Topic
     public function __construct()
     {
         $this->post = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
