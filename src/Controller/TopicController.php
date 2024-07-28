@@ -2,17 +2,26 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Entity\Topic;
+use App\Repository\PostRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+#[Route(
+    '/topic', 
+    name: 'topic_'
+)]
 class TopicController extends AbstractController
 {
-    #[Route('/topic', name: 'app_topic')]
-    public function index(): Response
+    #[Route('/{id}/show', name: 'show')]
+    public function index(Topic $topic, PostRepository $postRepository): Response
     {
+        $posts = $postRepository->findBy(['topic' => $topic]);
+
         return $this->render('topic/index.html.twig', [
-            'controller_name' => 'TopicController',
+            'topic' => $topic,
+            'posts' => $posts
         ]);
     }
 }
