@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_EMAIL', fields: ['email'])]
@@ -17,6 +18,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
+
+    #[Assert\NotBlank()]
+    #[Assert\NoSuspiciousCharacters(
+        restrictionLevelMessage: 'The username contains non-valid caracters'
+    )]
+    #[ORM\Column(length: 100)]
+    private ?string $username = null;
 
     #[ORM\Column(length: 180)]
     private ?string $email = null;
@@ -34,7 +42,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column]
-    private ?bool $verified = null;
+    private ?bool $verified = false;
 
     /**
      * @var Collection<int, Topic>
@@ -55,11 +63,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->topic = new ArrayCollection();
         $this->post = new ArrayCollection();
+        $this->avatar = 'sbcf-default-avatar.png';
     }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->username;
+    }
+
+    public function setUsername(string $username): static
+    {
+        $this->username = $username;
+
+        return $this;
     }
 
     public function getEmail(): ?string
