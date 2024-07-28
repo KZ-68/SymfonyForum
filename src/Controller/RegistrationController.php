@@ -31,28 +31,38 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
-            $user->setPassword(
-                $userPasswordHasher->hashPassword(
-                    $user,
-                    $form->get('plainPassword')->getData()
-                )
-            );
+            $password_regex = "/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{12,}$/"; 
+            $plainPassword = $form->get('plainPassword')->getData();
+            if(preg_match($password_regex, $plainPassword)) {
+                $agreeTerms = $form->get('agreeTerms')->getData();
+                if($agreeTerms === true) {
+                    $user->setPassword(
+                        $userPasswordHasher->hashPassword(
+                            $user,
+                            $form->get('plainPassword')->getData()
+                        )
+                    );
 
-            $entityManager->persist($user);
-            $entityManager->flush();
+                    $entityManager->persist($user);
+                    $entityManager->flush();
 
-            // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
-                (new TemplatedEmail())
-                    ->from(new Address('mailer@mail-admin.com', 'Admin Mail'))
-                    ->to($user->getEmail())
-                    ->subject('Please Confirm your Email')
-                    ->htmlTemplate('registration/confirmation_email.html.twig')
-            );
-
-            // do anything else you need here, like send an email
-
-            return $this->redirectToRoute('app_home');
+                    // generate a signed url and email it to the user
+                    $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
+                        (new TemplatedEmail())
+                            ->from(new Address('mailer@mail-admin.com', 'Admin Mail'))
+                            ->to($user->getEmail())
+                            ->subject('Please Confirm your Email')
+                            ->htmlTemplate('registration/confirmation_email.html.twig')
+                    );
+                    return $this->redirectToRoute('app_home');
+                } else {
+                    $this->addFlash('error', 'We need your consent for the registration');
+                    return $this->redirectToRoute('app_register');
+                }
+            } else {
+                $this->addFlash('error', 'Password strength minimal requirement needed');
+                return $this->redirectToRoute('app_register');
+            }
         }
 
         return $this->render('registration/register.html.twig', [
