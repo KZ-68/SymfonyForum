@@ -8,16 +8,16 @@
     <a class="return-btn" href="{{ path('category_show', {'id': category.id}) }}">Return</a>
 </div>
 
-<h1>Create a new Topic</h1>
-<hr>
-
 <div class="create-topic-wrapper">
-    {{ form_start(form) }}
-    <div class="form">
-        {{ form_row(form.title) }}
-        {{ form_row(form.text)}}
-        {{ form_row(form.submit) }}
+    <div class="create-topic">
+        <h2>Create a new Topic</h2>
+        {{ form_start(form) }}
+        <div class="form">
+            {{ form_row(form.title) }}
+            {{ form_row(form.text)}}
+            {{ form_row(form.submit) }}
+        </div>
+        {{ form_end(form) }}
     </div>
-    {{ form_end(form) }}
 </div>
 {% endblock %}
