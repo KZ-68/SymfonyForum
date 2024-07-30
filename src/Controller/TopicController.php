@@ -2,8 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Post;
 use App\Entity\Topic;
+use App\Form\AddPostType;
 use App\Repository\PostRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,6 +26,32 @@ class TopicController extends AbstractController
         return $this->render('topic/index.html.twig', [
             'topic' => $topic,
             'posts' => $posts
+        ]);
+    }
+
+    #[Route('/{id}/show/add-post', name:'add_post')]
+    public function addPost(Topic $topic, EntityManagerInterface $entityManager, Request $request): Response 
+    {
+        $post = new Post(); 
+        $user = $this->getUser();
+
+        $form = $this->createForm(AddPostType::class, $post);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $post = $form->getData();
+            $post->setUser($user);
+            $post->setTopic($topic);
+
+            $entityManager->persist($post);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('topic_show', ['id' => $topic->getId()]);
+        }
+
+        return $this->render('topic/add-post.html.twig', [
+            'form' => $form,
+            'topic' => $topic
         ]);
     }
 }
