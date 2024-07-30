@@ -16,6 +16,29 @@
             <div class="topic-subject-text">
                 <p>{{ topic.text }}</p>
             </div>
+            <div id="actions-btns">
+                <a class="add-post-btn" href="{{ path('topic_add_post', {'id': topic.id}) }}">Add Post</a>
+            </div>
+        </section>
+        <section class="topic-posts-section">
+            {% if posts > 1 %}
+                {% for post in posts %}
+                <div class="topic-posts">
+                    <h2>Re: {{ topic.title }}</h2>
+                    <div class="post-top">
+                        <p>Post créé le : <time>{{ post.createdat |date("d/m/Y") }}</time></p>
+                        <img class="topic-avatar" src="{{ asset('uploads/images/' ~ post.user.avatar) }}" alt="User Avatar">
+                        <h3>{{ post.user.username }}</h3>
+                    </div>
+                    <div class="post-text">
+                        <p>{{ post.text }}</p>
+                    </div>
+                    <div id="actions-btns">
+                    </div>
+                </div>  
+                {% endfor %}
+            {% else %}
+            {% endif %}
         </section>
     </div>
 </div>
