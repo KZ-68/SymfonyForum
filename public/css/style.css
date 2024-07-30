@@ -128,7 +128,8 @@ main a {
     width: fit-content;
 }
 
-.create-topic-wrapper, 
+.create-topic-wrapper,
+.add-post-wrapper, 
 .register-wrapper
 {
     display: flex;
@@ -139,6 +140,7 @@ main a {
 }
 
 .create-topic,
+.add-post,
 .register 
 {
     display: flex;
@@ -150,7 +152,9 @@ main a {
     background-color: #000000a6;
 }
 
-form[name="create_topic"] div.form {
+form[name="create_topic"] div.form,
+form[name="add_post"] div.form
+{
     display: flex;
     flex-direction: column;
     gap: 40px;
@@ -162,7 +166,9 @@ div.form > div {
     flex-direction: column;
 }
 
-button#create_topic_submit {
+button#create_topic_submit,
+button#add_post_submit 
+{
     padding: 10px 15px;
     font-size: 20px;
     font-weight: bolder;
@@ -211,21 +217,36 @@ form[name="registration_form"] button:hover {
     margin: 50px 70px;
 }
 
-.topic-subject {
+.topic-subject,
+.topic-posts
+{
     display: flex;
     flex-direction: column;
-    padding: 20px 115px;
+    padding: 20px 70px;
     border: none;
-    border-radius: 10px;
+    border-radius: 15px;
     background-color: #000000a6;
     align-items: flex-start;
 }
 
-.topic-subject-top {
+.topic-subject-top
+.post-top
+{
     font-size: 22px;
+    padding: 20px 25px;
+    background-color: #1b1f406e;
+    border-radius: 10px;
 }
 
-.topic-subject-text {
+.topic-subject-top p,
+.post-top p
+{
+    margin-bottom: 15px;
+}
+
+.topic-subject-text,
+.post-text
+{
     font-size: 20px;
     margin: 60px 0px 30px 0px;
     padding: 20px;
@@ -240,3 +261,24 @@ form[name="registration_form"] button:hover {
     height: 46px;
 }
 
+#actions-btns {
+    padding: 20px 0px;
+}
+
+a.add-post-btn {
+    padding: 10px 15px;
+    font-size: 20px;
+    font-weight: bolder;
+    border: none;
+    border-radius: 5px;
+    background-color: #231c44;
+    color: #ffffff;
+}
+
+a.add-post-btn:hover {
+    background-color: #453159;
+}
+
+.topic-posts-section {
+    margin-top: 40px
+}
