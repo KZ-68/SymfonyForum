@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %} 
+
+{% block title %}Topic - Add a new Post{% endblock %}
+
+{% block body %}
+
+<div class="return-btn-zone">
+    <a class="return-btn" href="{{ path('topic_show', {'id': topic.id}) }}">Return</a>
+</div>
+
+<div class="add-post-wrapper">
+    <div class="add-post">
+        <h2>Add a new Post</h2>
+        {{ form_start(form) }}
+        <div class="form">
+            {{ form_row(form.text)}}
+            {{ form_row(form.submit) }}
+        </div>
+        {{ form_end(form) }}
+    </div>
+</div>
+{% endblock %}
