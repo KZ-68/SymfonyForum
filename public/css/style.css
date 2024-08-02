@@ -12,6 +12,7 @@
 
 body {
     color: #ffffff;
+    width: 100%;
 }
 
 .gradient-background {
@@ -22,7 +23,7 @@ body {
     rgb(74 17 171 / 65%) 74%, rgba(2, 3, 32, 0.773546918767507) 100%);
     position: absolute;
     z-index: -1;
-    width: 100%;
+    width: inherit;
     height: 1333px;
 }
 
@@ -225,8 +226,16 @@ form[name="registration_form"] button:hover {
     padding: 20px 70px;
     border: none;
     border-radius: 15px;
-    background-color: #000000a6;
     align-items: flex-start;
+}
+
+.topic-subject {
+    background-color: #000000a6;
+}
+
+.topic-posts {
+    background-color: #0e0042bd;
+    max-width: 90%;
 }
 
 .topic-subject-top
