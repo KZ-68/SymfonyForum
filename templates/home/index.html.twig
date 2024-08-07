@@ -6,14 +6,24 @@
 <div id="forum-home-wrapper">
     <h2>Symfony Forum Home</h2>
 
-    <div id="section-list-wrapper">
-        <h2>Where you want to go ?</h2>
+    
+    {% if app.user == null %}
+        <div id="section-non-connected-user-wrapper">
+            <h2>For accessing to the forum, please log in your account, or register</h2>
 
-        <ul>
-            <li><a href="{{ path('category_list') }}">> Categories List</a></li>
-            <li>> All Topics</li>
-            <li>> Users List</li>
-        </ul>
-    </div>
+            <a href="{{ path('app_register') }}">Register</a>
+            <a href="{{ path('app_login') }}">Log In</a>
+        </div>
+    {% else %}
+        <div id="section-list-wrapper">
+            <h2>Where you want to go ?</h2>
+
+            <ul>
+                <li><a href="{{ path('category_list') }}">> Categories List</a></li>
+                <li>> All Topics</li>
+                <li>> Users List</li>
+            </ul>
+        </div>
+    {% endif %}
 </div>
 {% endblock %}
