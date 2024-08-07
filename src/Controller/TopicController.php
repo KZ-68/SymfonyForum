@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route(
     '/topic', 
@@ -21,6 +22,7 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 class TopicController extends AbstractController
 {
     #[Route('/{id}/show', name: 'show')]
+    #[IsGranted('ROLE_USER')]
     public function index(Topic $topic, PostRepository $postRepository): Response
     {
         $posts = $postRepository->findBy(['topic' => $topic]);
@@ -32,6 +34,7 @@ class TopicController extends AbstractController
     }
 
     #[Route('/{id}/show/add-post', name:'add_post')]
+    #[IsGranted('ROLE_USER')]
     public function addPost(Topic $topic, EntityManagerInterface $entityManager, Request $request): Response 
     {
         $post = new Post(); 

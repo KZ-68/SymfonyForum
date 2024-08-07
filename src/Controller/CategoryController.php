@@ -10,12 +10,14 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route(
     '/category', 
     name: 'category_'
 )]
+#[IsGranted('ROLE_USER')]
 class CategoryController extends AbstractController
 {
     #[Route('/list', name: 'list')]
@@ -29,6 +31,7 @@ class CategoryController extends AbstractController
     }
 
     #[Route('/list/{id}/show', name:'show')]
+    #[IsGranted('ROLE_USER')]
     public function showCategory(Category $category): Response 
     {
         return $this->render('category/show.html.twig', [
@@ -37,6 +40,7 @@ class CategoryController extends AbstractController
     }
 
     #[Route('/list/{id}/show/create-topic', name:'create_topic')]
+    #[IsGranted('ROLE_USER')]
     public function createTopic(Category $category, EntityManagerInterface $entityManager, Request $request): Response 
     {
 
