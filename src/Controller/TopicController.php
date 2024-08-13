@@ -19,6 +19,7 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
     '/topic', 
     name: 'topic_'
 )]
+#[IsGranted('ROLE_USER')]
 class TopicController extends AbstractController
 {
     #[Route('/{id}/show', name: 'show')]
