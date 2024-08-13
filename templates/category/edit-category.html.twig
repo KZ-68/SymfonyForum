@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %} 
+
+{% block title %}Edit a Category{% endblock %}
+
+{% block body %}
+
+<div class="return-btn-zone">
+    <a class="return-btn" href="{{ path('category_show', {'id': category.id}) }}">Return</a>
+</div>
+
+<div class="create-topic-wrapper">
+    <div class="create-topic">
+        <h2>Edit a Category</h2>
+        {{ form_start(form) }}
+        <div class="form">
+            {{ form_row(form.name) }}
+            {{ form_row(form.confirm) }}
+        </div>
+        {{ form_end(form) }}
+    </div>
+</div>
+{% endblock %}
