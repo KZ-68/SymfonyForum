@@ -63,6 +63,16 @@ class CategoryController extends AbstractController
         ]);
     }
 
+    #[Route('/list/{id}/remove-category', name: 'remove')]
+    #[IsGranted("ROLE_ADMIN")]
+    public function removeCategory(Category $category, EntityManagerInterface $entityManager) {
+        
+        $entityManager->remove($category);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('category_list');
+    }
+
     #[Route('/list/{id}/show/create-topic', name:'create_topic')]
     #[IsGranted('ROLE_USER')]
     public function createTopic(Category $category, EntityManagerInterface $entityManager, Request $request): Response 
