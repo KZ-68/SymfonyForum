@@ -11,6 +11,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -99,5 +100,27 @@ class CategoryController extends AbstractController
             'form' => $form,
             'category' => $category
         ]);
+    }
+
+    #[Route('/list/{id}/show/topic/{topicId}/lock-topic', name:'lock_topic')]
+    #[IsGranted('ROLE_ADMIN')]
+    public function lockTopic(
+        #[MapEntity(mapping: ['topicId' => 'id'])] Topic $topic,
+        Category $category,
+        EntityManagerInterface $entityManager
+    ) {
+        $isClosed = $topic->isClosed();
+
+        if(!$isClosed) {
+            $topic->setClosed(true);
+            $entityManager->persist($topic);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('category_show', ['id' => $category->getId()]);
+        } else {
+            $message = 'This topic as been already locked';
+
+            return $this->redirectToRoute('category_show', ['id' => $category->getId(), 'message' => $message]);
+        }
     }
 }
