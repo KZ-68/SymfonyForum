@@ -81,7 +81,6 @@ main a {
     color: #ffffff;
     text-decoration: none;
     font-size: 24px;
-    background-color: #453159;
     padding: 15px 20px;
     border-radius: 30px;
 }
@@ -120,16 +119,36 @@ main a {
     background-color: #4e1b9266;
 }
 
-#section-list-wrapper li > a,
-#categories-section-list-wrapper li > a {
+#section-list-wrapper li > a {
     background-color: unset;
     font-size: inherit;
     padding: initial;
 }
 
+#categories-section-list-wrapper li > #admin-edit-category,
+#categories-section-list-wrapper li > #admin-remove-category {
+    font-size: inherit;
+    margin: 0px 10px;
+    padding: 10px 15px;
+    border-radius: 10px;
+    background-color: #3d3d3d9e;
+}
+
 .return-btn-zone {
     margin: 30px 20px;
     width: fit-content;
+    padding: 10px 15px;
+    font-size: 20px;
+    font-weight: bolder;
+    border: none;
+    border-radius: 5px;
+    background-color: #453159;
+    color: #ffffff;
+}
+
+.return-btn-zone:hover {
+    cursor: pointer;
+    background-color: #2e213b;
 }
 
 .create-topic-wrapper,
@@ -352,6 +371,24 @@ a.add-post-btn:hover {
 }
 
 @media screen and (min-device-width : 320px) and (max-device-width : 480px)  {
+    :root {
+        --h1-size: 62px;
+        --h2-size: 54px;
+    }
+
+    #user-links a {
+        font-size: 48px;
+    }
+
+    #section-list-wrapper h2, #categories-list-wrapper h2, #section-non-connected-user-wrapper h2 {
+        text-align: center;
+    }
+
+    #section-list-wrapper a, #categories-list-wrapper a, #section-non-connected-user-wrapper a {
+        font-size: 48px;
+        width: fit-content;
+    }
+
     #login-form input[type="email"] {
         width: 50%;
     }
