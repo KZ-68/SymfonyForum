@@ -5,6 +5,12 @@
 {% block body %}
 
 <div class="topic-wrapper">
+    {% if topic.isclosed == 'true' %}
+        <div class="topic-locked-message-top">
+            <p>This topic is locked, you can't respond at any post</p>
+        </div>
+    {% endif %}
+
     <div class="topic">
         <section class="topic-subject">
             <h2>Topic - {{ topic.title }}</h2>
@@ -16,12 +22,15 @@
             <div class="topic-subject-text">
                 <p>{{ topic.text }}</p>
             </div>
-            <div id="actions-btns">
+            {% if topic.isclosed == 'true' %}
+            {% else %}
+            <div class="actions-btns">
                 <a class="add-post-btn" href="{{ path('topic_add_post', {'id': topic.id}) }}">Add Post</a>
             </div>
+            {% endif %}
         </section>
         <section class="topic-posts-section">
-            {% if posts > 1 %}
+            {% if posts|length >= 1 %}
                 {% for post in posts %}
                 <div class="topic-posts">
                     <h2>Re: {{ topic.title }}</h2>
@@ -33,11 +42,25 @@
                     <div class="post-text">
                         <p>{{ post.text }}</p>
                     </div>
-                    <div id="actions-btns">
+                    {% if topic.isclosed == 'true' %}
+                    {% else %}
+                    <div class="actions-btns">
                     </div>
+                    {% endif %}
                 </div>  
                 {% endfor %}
             {% else %}
+            <div class="topic-posts">
+                <div class="post-text">
+                    <p>There's no post in this topic</p>
+                </div>
+                {% if topic.isclosed == 'true' %}
+                {% else %}
+                <div class="actions-btns">
+                    <a class="add-post-btn" href="{{ path('topic_add_post', {'id': topic.id}) }}">Add Post</a>
+                </div>
+                {% endif %}
+            </div> 
             {% endif %}
         </section>
     </div>
