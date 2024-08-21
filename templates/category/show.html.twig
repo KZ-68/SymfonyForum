@@ -24,9 +24,13 @@
             {% if category.topic | length > 0 %}
                 {% for topic in category.topic %}
                 <li>
-                    <a href="{{path('topic_show', {'id': topic.id})}}">{{ topic.title }}</a> <time>{{ topic.createdat|date("l h:i") }}</time>
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <a id="admin-lock-topic" href="{{path('category_lock_topic', {'id': category.id,'topicId': topic.id})}}"><svg xmlns="http://www.w3.org/2000/svg" height="20" width="17.5" viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M144 144l0 48 160 0 0-48c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192l0-48C80 64.5 144.5 0 224 0s144 64.5 144 144l0 48 16 0c35.3 0 64 28.7 64 64l0 192c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 256c0-35.3 28.7-64 64-64l16 0z"/></svg> Lock this Topic</a>
+                    {% if topic.isclosed == 'true' %}
+                        <p id="topic-locked-message">This topic is closed</p>
+                        <a href="{{path('topic_show', {'id': topic.id})}}">{{ topic.title }}</a> <time>{{ topic.createdat|date("l h:i") }}</time>
+                    {% else %}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a id="admin-lock-topic" href="{{path('category_lock_topic', {'id': category.id,'topicId': topic.id})}}"><svg xmlns="http://www.w3.org/2000/svg" height="20" width="17.5" viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M144 144l0 48 160 0 0-48c0-44.2-35.8-80-80-80s-80 35.8-80 80zM80 192l0-48C80 64.5 144.5 0 224 0s144 64.5 144 144l0 48 16 0c35.3 0 64 28.7 64 64l0 192c0 35.3-28.7 64-64 64L64 512c-35.3 0-64-28.7-64-64L0 256c0-35.3 28.7-64 64-64l16 0z"/></svg> Lock this Topic</a>
+                        {% endif %}
                     {% endif %}
                 </li>
                 {% endfor %}
