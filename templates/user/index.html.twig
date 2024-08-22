@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User Profile{% endblock %}
+
+{% block body %}
+
+<section id="profile-section">
+    <div id="user-profile-wrapper">
+        <h2>User Profile</h2>
+        <div id="user-profile-top">
+            <div class="image-profile">
+                <img src="{{asset('uploads/images/' ~ user.avatar)}}" alt="User Avatar">
+            </div>
+            <h3>{{ user.username }}</h3>
+        </div>
+
+        <div id="user-topic-list">
+            <h4>My topics list</h4>
+            <ul>
+                {% for topic in user.topic %}
+                    <li><a href="{{path('topic_show', {'id': topic.id})}}">{{ topic.title }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</section>
+{% endblock %}
