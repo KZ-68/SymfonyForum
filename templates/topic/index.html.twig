@@ -1,68 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Topic - {{ topic.title }}{% endblock %}
+{% block title %}Topics List{% endblock %}
 
 {% block body %}
 
-<div class="topic-wrapper">
-    {% if topic.isclosed == 'true' %}
-        <div class="topic-locked-message-top">
-            <p>This topic is locked, you can't respond at any post</p>
-        </div>
-    {% endif %}
+<div class="return-btn-zone">
+    <a class="return-btn" href="{{ path('app_home') }}">Return</a>
+</div>
 
-    <div class="topic">
-        <section class="topic-subject">
-            <h2>Topic - {{ topic.title }}</h2>
-            <div class="topic-subject-top">
-                <p>Topic créé le : <time>{{ topic.createdat |date("d/m/Y") }}</time></p>
-                <img class="topic-avatar" src="{{ asset('uploads/images/' ~ topic.user.avatar) }}" alt="User Avatar">
-                <h3>{{ topic.user.username }}</h3>
-            </div>
-            <div class="topic-subject-text">
-                <p>{{ topic.text }}</p>
-            </div>
-            {% if topic.isclosed == 'true' %}
-            {% else %}
-            <div class="actions-btns">
-                <a class="add-post-btn" href="{{ path('topic_add_post', {'id': topic.id}) }}">Add Post</a>
-            </div>
-            {% endif %}
-        </section>
-        <section class="topic-posts-section">
-            {% if posts|length >= 1 %}
-                {% for post in posts %}
-                <div class="topic-posts">
-                    <h2>Re: {{ topic.title }}</h2>
-                    <div class="post-top">
-                        <p>Post créé le : <time>{{ post.createdat |date("d/m/Y") }}</time></p>
-                        <img class="topic-avatar" src="{{ asset('uploads/images/' ~ post.user.avatar) }}" alt="User Avatar">
-                        <h3>{{ post.user.username }}</h3>
-                    </div>
-                    <div class="post-text">
-                        <p>{{ post.text }}</p>
-                    </div>
-                    {% if topic.isclosed == 'true' %}
-                    {% else %}
-                    <div class="actions-btns">
-                    </div>
+<div id="topics-list-wrapper">
+    <h2>Topics List</h2>
+
+    <div id="topics-section-list-wrapper">
+        <ul>
+            {% for topic in topics %}
+                <li>
+                    <a href="{{ path('topic_show', {'id': topic.id}) }}">{{ topic.title }}</a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <a id="admin-edit-topic" href="{{ path('topic_edit', {'id': topic.id}) }}">Edit<svg xmlns="http://www.w3.org/2000/svg" height="20" width="20" viewBox="0 0 512 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M142.9 142.9c-17.5 17.5-30.1 38-37.8 59.8c-5.9 16.7-24.2 25.4-40.8 19.5s-25.4-24.2-19.5-40.8C55.6 150.7 73.2 122 97.6 97.6c87.2-87.2 228.3-87.5 315.8-1L455 55c6.9-6.9 17.2-8.9 26.2-5.2s14.8 12.5 14.8 22.2l0 128c0 13.3-10.7 24-24 24l-8.4 0c0 0 0 0 0 0L344 224c-9.7 0-18.5-5.8-22.2-14.8s-1.7-19.3 5.2-26.2l41.1-41.1c-62.6-61.5-163.1-61.2-225.3 1zM16 312c0-13.3 10.7-24 24-24l7.6 0 .7 0L168 288c9.7 0 18.5 5.8 22.2 14.8s1.7 19.3-5.2 26.2l-41.1 41.1c62.6 61.5 163.1 61.2 225.3-1c17.5-17.5 30.1-38 37.8-59.8c5.9-16.7 24.2-25.4 40.8-19.5s25.4 24.2 19.5 40.8c-10.8 30.6-28.4 59.3-52.9 83.8c-87.2 87.2-228.3 87.5-315.8 1L57 457c-6.9 6.9-17.2 8.9-26.2 5.2S16 449.7 16 440l0-119.6 0-.7 0-7.6z"/></svg></a>
+                    <a id="admin-remove-topic" href="{{ path('topic_remove', {'id': topic.id}) }}">Delete<svg xmlns="http://www.w3.org/2000/svg" height="20" width="17.5" viewBox="0 0 448 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#ffffff" d="M135.2 17.7C140.6 6.8 151.7 0 163.8 0L284.2 0c12.1 0 23.2 6.8 28.6 17.7L320 32l96 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L32 96C14.3 96 0 81.7 0 64S14.3 32 32 32l96 0 7.2-14.3zM32 128l384 0 0 320c0 35.3-28.7 64-64 64L96 512c-35.3 0-64-28.7-64-64l0-320zm96 64c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16zm96 0c-8.8 0-16 7.2-16 16l0 224c0 8.8 7.2 16 16 16s16-7.2 16-16l0-224c0-8.8-7.2-16-16-16z"/></svg></a>
                     {% endif %}
-                </div>  
-                {% endfor %}
-            {% else %}
-            <div class="topic-posts">
-                <div class="post-text">
-                    <p>There's no post in this topic</p>
-                </div>
-                {% if topic.isclosed == 'true' %}
-                {% else %}
-                <div class="actions-btns">
-                    <a class="add-post-btn" href="{{ path('topic_add_post', {'id': topic.id}) }}">Add Post</a>
-                </div>
-                {% endif %}
-            </div> 
-            {% endif %}
-        </section>
+                </li>
+            {% endfor %}
+        </ul>
     </div>
 </div>
 {% endblock %}
