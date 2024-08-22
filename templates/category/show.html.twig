@@ -25,7 +25,7 @@
                 {% for topic in category.topic %}
                 <li>
                     {% if topic.isclosed == 'true' %}
-                        <p id="topic-locked-message">This topic is closed</p>
+                        <p id="topic-locked-message">This topic is locked</p>
                         <a href="{{path('topic_show', {'id': topic.id})}}">{{ topic.title }}</a> <time>{{ topic.createdat|date("l h:i") }}</time>
                     {% else %}
                         {% if is_granted('ROLE_ADMIN') %}
