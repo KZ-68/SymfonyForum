@@ -101,6 +101,7 @@ main a {
 
 #section-list-wrapper, 
 #categories-list-wrapper,
+#topics-list-wrapper,
 #section-non-connected-user-wrapper
 {
     display: flex;
@@ -118,13 +119,15 @@ main a {
 }
 
 #section-list-wrapper ul,
-#categories-section-list-wrapper ul
+#categories-section-list-wrapper ul,
+#topics-section-list-wrapper ul
 {
     list-style-type: none;
 }
 
 #section-list-wrapper li,
-#categories-section-list-wrapper li
+#categories-section-list-wrapper li,
+#topics-section-list-wrapper li
 {
     display: flex;
     flex-direction: row;
@@ -143,12 +146,16 @@ main a {
 }
 
 #categories-section-list-wrapper li:hover,
+#topics-section-list-wrapper li:hover,
 #section-list-wrapper li :hover {
     background-color: #2e213b;
 }
 
 #categories-section-list-wrapper li > #admin-edit-category,
-#categories-section-list-wrapper li > #admin-remove-category {
+#categories-section-list-wrapper li > #admin-remove-category, 
+#topics-section-list-wrapper li > #admin-edit-topic,
+#topics-section-list-wrapper li > #admin-remove-topic
+{
     font-size: inherit;
     margin: 0px 10px;
     padding: 10px 15px;
@@ -156,11 +163,15 @@ main a {
     background-color: #3d3d3d9e;
 }
 
-#admin-edit-category > svg {
+#admin-edit-category > svg,
+#admin-edit-topic > svg 
+{
     margin-left: 15px;
 }
 
-#admin-remove-category > svg {
+#admin-remove-category > svg, 
+#admin-remove-topic > svg 
+{
     margin-left: 15px;
 }
 
