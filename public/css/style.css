@@ -49,6 +49,32 @@ h1 > a {
     color: #ffffff;
 }
 
+#header-wrapper {
+    display: flex;
+    flex-direction: row;
+    background-color: #15103df0;
+    padding: 20px 0px;
+    justify-content: space-between;
+}
+
+#navs-header-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 17px;
+    align-items: center;
+}
+
+#nav-header-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    a {
+        text-decoration: none;
+        color: #ffffff;
+        font-size: 24px;
+    }
+}
+
 header nav {
     display: flex;
     flex-direction: row;
@@ -58,13 +84,13 @@ header nav {
 
 .profile-card {
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+    flex-direction: row-reverse;
+    align-items: center;
     padding: 20px 20px;
     border-radius: 14px;
-    margin-top: 20px;
+    /* margin-top: 5px; */
     margin-right: 15px;
-    background-color: #000000a6;
+    background-color: #221d618a;
     border-radius: 15px;
 }
 
@@ -72,7 +98,6 @@ header nav {
     color: #ffffff;
     padding-right: 15px;
     font-size: 18px;
-    margin-bottom: 15px;
 }
 
 #user-links a {
@@ -82,13 +107,10 @@ header nav {
     font-size: 24px;
 }
 
-.profile-card #figure-avatar-header {
-    padding-right: 15px;
-}
-
 .profile-card .avatar-header {
     width: 46px;
     height: 46px;
+    border-radius: 5px;
 }
 
 main a {
@@ -102,6 +124,7 @@ main a {
 #section-list-wrapper, 
 #categories-list-wrapper,
 #topics-list-wrapper,
+#admin-list-wrapper,
 #section-non-connected-user-wrapper
 {
     display: flex;
@@ -118,16 +141,22 @@ main a {
     font-size: var(--h2-size);
 }
 
+#admin-section-list-wrapper h2 {
+    font-size: var(--h2-size);
+}
+
 #section-list-wrapper ul,
 #categories-section-list-wrapper ul,
-#topics-section-list-wrapper ul
+#topics-section-list-wrapper ul,
+#admin-section-list-wrapper ul
 {
     list-style-type: none;
 }
 
 #section-list-wrapper li,
 #categories-section-list-wrapper li,
-#topics-section-list-wrapper li
+#topics-section-list-wrapper li,
+#admin-section-list-wrapper li
 {
     display: flex;
     flex-direction: row;
@@ -139,7 +168,9 @@ main a {
     background-color: #4e1b9266;
 }
 
-#section-list-wrapper li > a {
+#section-list-wrapper li > a,
+#admin-section-list-wrapper li > a 
+{
     background-color: unset;
     font-size: inherit;
     padding: initial;
