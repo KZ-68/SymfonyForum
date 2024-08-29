@@ -16,32 +16,40 @@
     <img class="space-background-image" src="{{ asset('uploads/backgrounds/Space-Background-Image-2.jpg')}}" alt="Space Background">
     <body>
         <header>
-            <nav>
+            <div id="header-wrapper">
                 <h1><a href="{{path('app_home')}}">Symfony Forum</a></h1>
-                {% if app.user %}
-                    <div class="profile-card">
-                        <figure id="figure-avatar-header">
-                            {% if app.user.avatar %}
-                            <img class="avatar-header" src="{{asset('uploads/images/' ~ app.user.avatar)}}" alt="User Avatar Header">
-                            {% else %}
-                            <img class="avatar-header" src="{{asset('uploads/images/sbcf-default-avatar.png')}}" alt="Default User Avatar Header">
-                            {% endif %}
-                        </figure>
-                        <p>{{app.user.username}}</p>
-                        <div id="user-links">
-                            <a href="{{path('profile_my_profile')}}">Profile</a>
-                            <a href="{{path('app_logout')}}">Sign Out</a>   
-                        </div> 
-                    </div>
-                {% else %}
-                    <div id="user-links">
-                        <a href="{{ path('app_register') }}">Register</a>
-                        <a href="{{ path('app_login') }}">Log In</a>
-                    </div>
-                {% endif %}
-            </nav>
+                <div id="navs-header-wrapper">
+                    <nav id="nav-header-left">
+                        {% if app.user and is_granted('ROLE_ADMIN') %}
+                            <a href="{{path('admin_panel')}}">Admin Panel</a>
+                        {% endif %}
+                    </nav>
+                    <nav>
+                        {% if app.user %}
+                            <div class="profile-card">
+                                <figure id="figure-avatar-header">
+                                    {% if app.user.avatar %}
+                                    <img class="avatar-header" src="{{asset('uploads/images/' ~ app.user.avatar)}}" alt="User Avatar Header">
+                                    {% else %}
+                                    <img class="avatar-header" src="{{asset('uploads/images/sbcf-default-avatar.png')}}" alt="Default User Avatar Header">
+                                    {% endif %}
+                                </figure>
+                                <p>{{app.user.username}}</p>
+                                <div id="user-links">
+                                    <a href="{{path('profile_my_profile')}}">Profile</a>
+                                    <a href="{{path('app_logout')}}">Sign Out</a>   
+                                </div> 
+                            </div>
+                        {% else %}
+                            <div id="user-links">
+                                <a href="{{ path('app_register') }}">Register</a>
+                                <a href="{{ path('app_login') }}">Log In</a>
+                            </div>
+                        {% endif %}
+                    </nav>
+                </div>
+            </div>
         </header>
-        
         <main>
             {% block body %}{% endblock %}
         </main>
